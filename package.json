@@ -1,0 +1,15 @@
+{
+  "name": "solecitobot",
+  "version": "1.0.0",
+  "description": "Bot de Twitch que anuncia publicaciones nuevas automáticamente",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "keywords": ["twitch", "bot", "tmi.js"],
+  "author": "Sunjay_q",
+  "license": "MIT",
+  "dependencies": {
+    "tmi.js": "^1.8.5"
+  }
+}
