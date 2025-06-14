@@ -10,10 +10,13 @@ let ultimoInstagram = '';
 let ultimoTikTok = '';
 
 async function getBrowser() {
+  const executablePath = await chrome.executablePath || '/usr/bin/chromium-browser'; // fallback por si Render no lo resuelve bien
+
   return await puppeteer.launch({
     args: chrome.args,
-    executablePath: await chrome.executablePath,
-    headless: chrome.headless,
+    executablePath,
+    headless: true, // obligatoriamente true en entornos sin GUI
+    ignoreHTTPSErrors: true,
   });
 }
 
