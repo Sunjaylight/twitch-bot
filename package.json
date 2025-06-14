@@ -2,6 +2,7 @@
   "name": "solecitobot",
   "version": "1.0.0",
   "description": "Bot de Twitch que anuncia publicaciones nuevas automáticamente",
+  "type": "module",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js",
