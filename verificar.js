@@ -1,4 +1,5 @@
-import { chromium } from 'playwright-aws-lambda';
+import pkg from 'playwright-aws-lambda';
+const { chromium } = pkg;
 import axios from 'axios';
 
 const INSTAGRAM_URL = 'https://www.instagram.com/mochi.9706/';
