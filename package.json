@@ -1,24 +1,18 @@
 {
-  "name": "solecitobot",
+  "name": "twitch-bot",
   "version": "1.0.0",
-  "description": "Bot de Twitch que anuncia publicaciones nuevas automáticamente",
   "type": "module",
-  "main": "bot.js",
   "scripts": {
     "start": "node bot.js",
-    "verificar": "node verificar.js"
+    "postinstall": "npx puppeteer browsers install chrome"
   },
-  "keywords": [
-    "twitch",
-    "bot",
-    "tmi.js"
-  ],
-  "author": "Sunjay_q",
-  "license": "MIT",
   "dependencies": {
-    "axios": "^1.9.0",
-    "express": "^4.18.2",
-    "puppeteer": "^24.10.1",
+    "axios": "^1.6.8",
+    "express": "^4.19.2",
+    "puppeteer": "^22.7.0",
     "tmi.js": "^1.8.5"
+  },
+  "puppeteer": {
+    "default_browser": "chromium"
   }
 }

@@ -13,8 +13,8 @@ async function verificarInstagram() {
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
-  const page = await browser.newPage();
 
+  const page = await browser.newPage();
   await page.goto(INSTAGRAM_URL, { waitUntil: 'networkidle2' });
   await page.waitForSelector('article a');
 
@@ -35,8 +35,8 @@ async function verificarTikTok() {
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
-  const page = await browser.newPage();
 
+  const page = await browser.newPage();
   await page.goto(TIKTOK_URL, { waitUntil: 'networkidle2' });
   await page.waitForSelector('a[href*="/video/"]');
 
