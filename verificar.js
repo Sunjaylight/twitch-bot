@@ -1,5 +1,4 @@
 import playwright from 'playwright-aws-lambda';
-const chromium = playwright.chromium;
 import axios from 'axios';
 
 const INSTAGRAM_URL = 'https://www.instagram.com/mochi.9706/';
@@ -10,12 +9,11 @@ let ultimoInstagram = '';
 let ultimoTikTok = '';
 
 async function getBrowser() {
-  const browser = await chromium.puppeteer.launch({
+  return await playwright.chromium.launch({
     args: playwright.args,
     executablePath: await playwright.executablePath(),
-    headless: playwright.headless,
+    headless: true,
   });
-  return browser;
 }
 
 async function verificarInstagram() {
@@ -31,7 +29,7 @@ async function verificarInstagram() {
     ultimoInstagram = enlace;
     await axios.post(WEBHOOK_URL, {
       link: enlace,
-      plataforma: 'Instagram'
+      plataforma: 'Instagram',
     });
   }
 }
@@ -49,16 +47,17 @@ async function verificarTikTok() {
     ultimoTikTok = enlace;
     await axios.post(WEBHOOK_URL, {
       link: enlace,
-      plataforma: 'TikTok'
+      plataforma: 'TikTok',
     });
   }
 }
 
 async function ejecutar() {
   try {
+    console.log('🔄 El cron ha funcionado correctamente, iniciando verificación…');
     await verificarInstagram();
     await verificarTikTok();
-    console.log('✅ Verificación completada');
+    console.log('✅ Verificador ejecutado correctamente');
   } catch (err) {
     console.error('❌ Error:', err.message);
   }
