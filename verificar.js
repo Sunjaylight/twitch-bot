@@ -1,5 +1,4 @@
-import pkg from 'playwright-aws-lambda';
-const { chromium } = pkg;
+import playwright from 'playwright-aws-lambda';
 import axios from 'axios';
 
 const INSTAGRAM_URL = 'https://www.instagram.com/mochi.9706/';
@@ -10,10 +9,8 @@ let ultimoInstagram = '';
 let ultimoTikTok = '';
 
 async function getBrowser() {
-  return await chromium.launch({
-    args: [],
-    headless: true,
-  });
+  const browser = await playwright.getBrowser();
+  return browser;
 }
 
 async function verificarInstagram() {
