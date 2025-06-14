@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "start": "node bot.js",
-    "postinstall": "npx puppeteer browsers install chrome"
+    "postinstall": "echo 'postinstall complete'" 
   },
   "dependencies": {
     "axios": "^1.6.8",
@@ -12,8 +12,5 @@
     "express": "^4.19.2",
     "puppeteer-core": "^10.1.0",
     "tmi.js": "^1.8.5"
-  },
-  "puppeteer": {
-  "skip_chromium_download": true
-}
+  }
 }

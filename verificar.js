@@ -10,12 +10,16 @@ let ultimoInstagram = '';
 let ultimoTikTok = '';
 
 async function getBrowser() {
-  const executablePath = await chrome.executablePath || '/usr/bin/chromium-browser'; // fallback por si Render no lo resuelve bien
+  const executablePath = await chrome.executablePath;
+
+  if (!executablePath) {
+    throw new Error('No se encontró el navegador Chromium.');
+  }
 
   return await puppeteer.launch({
     args: chrome.args,
     executablePath,
-    headless: true, // obligatoriamente true en entornos sin GUI
+    headless: true,
     ignoreHTTPSErrors: true,
   });
 }
