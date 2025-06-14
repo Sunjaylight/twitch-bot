@@ -1,4 +1,5 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chrome from 'chrome-aws-lambda';
 import axios from 'axios';
 
 const INSTAGRAM_URL = 'https://www.instagram.com/mochi.9706/';
@@ -8,12 +9,16 @@ const WEBHOOK_URL = 'https://twitch-bot-k7zs.onrender.com/nuevo-post';
 let ultimoInstagram = '';
 let ultimoTikTok = '';
 
-async function verificarInstagram() {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+async function getBrowser() {
+  return await puppeteer.launch({
+    args: chrome.args,
+    executablePath: await chrome.executablePath,
+    headless: chrome.headless,
   });
+}
 
+async function verificarInstagram() {
+  const browser = await getBrowser();
   const page = await browser.newPage();
   await page.goto(INSTAGRAM_URL, { waitUntil: 'networkidle2' });
   await page.waitForSelector('article a');
@@ -31,11 +36,7 @@ async function verificarInstagram() {
 }
 
 async function verificarTikTok() {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-  });
-
+  const browser = await getBrowser();
   const page = await browser.newPage();
   await page.goto(TIKTOK_URL, { waitUntil: 'networkidle2' });
   await page.waitForSelector('a[href*="/video/"]');
