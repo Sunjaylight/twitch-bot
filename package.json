@@ -4,9 +4,9 @@
   "description": "Bot de Twitch que anuncia publicaciones nuevas automáticamente",
   "main": "bot.js",
   "scripts": {
-  "start": "node bot.js",
-  "verificar": "node verificar.js"
-},
+    "start": "node bot.js",
+    "verificar": "node verificar.js"
+  },
   "keywords": [
     "twitch",
     "bot",
@@ -15,6 +15,7 @@
   "author": "Sunjay_q",
   "license": "MIT",
   "dependencies": {
+    "axios": "^1.9.0",
     "express": "^4.18.2",
     "puppeteer": "^24.10.1",
     "tmi.js": "^1.8.5"
