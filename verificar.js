@@ -12,7 +12,7 @@ let ultimoTikTok = '';
 async function getBrowser() {
   return await playwrightChromium.launch({
     args: chromium.args,
-    executablePath: await chromium.executablePath(),
+    executablePath: await chromium.executablePath,
     headless: chromium.headless,
   });
 }
