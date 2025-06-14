@@ -9,6 +9,11 @@ const INSTAGRAM_URL = 'https://www.instagram.com/mochi.9706/';
 const TIKTOK_URL = 'https://www.tiktok.com/@mochi9706';
 const WEBHOOK_URL = 'https://twitch-bot-k7zs.onrender.com/nuevo-post';
 
+const browser = await puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox', '--disable-setuid-sandbox']
+});
+
 // Leer último enlace desde archivo
 async function leerUltimo(nombre) {
   try {

@@ -21,11 +21,14 @@ app.get('/verificar', async (req, res) => {
   exec('node verificar.js', (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`);
-      return res.status(500).send('❌ Error ejecutando verificador');
+      return res.status(500).send(`
+        ❌ Error ejecutando verificador<br>
+        <pre>${error.message}</pre>
+        <pre>${stderr}</pre>
+      `);
     }
     console.log(`stdout: ${stdout}`);
-    console.error(`stderr: ${stderr}`);
-    res.send('✅ Verificador ejecutado');
+    res.send(`✅ Verificador ejecutado<br><pre>${stdout}</pre>`);
   });
 });
 
