@@ -4,8 +4,9 @@
   "description": "Bot de Twitch que anuncia publicaciones nuevas automáticamente",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js"
-  },
+  "start": "node bot.js",
+  "verificar": "node verificar.js"
+},
   "keywords": [
     "twitch",
     "bot",

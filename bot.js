@@ -15,12 +15,26 @@ const client = new tmi.Client({
   channels: [process.env.CHANNEL]
 });
 
+app.get('/verificar', async (req, res) => {
+  const { exec } = require('child_process');
+
+  exec('node verificar.js', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return res.status(500).send('❌ Error ejecutando verificador');
+    }
+    console.log(`stdout: ${stdout}`);
+    console.error(`stderr: ${stderr}`);
+    res.send('✅ Verificador ejecutado');
+  });
+});
+
 client.connect();
 
 // Webhook: cuando Zapier envía una notificación
 app.post('/nuevo-post', async (req, res) => {
   const { link, plataforma } = req.body;
-
+  
   const mensaje = `📢 ¡Nuevo post en ${plataforma}! Míralo aquí 👉 ${link}`;
   await client.say(process.env.CHANNEL, mensaje);
 
