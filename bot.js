@@ -27,17 +27,25 @@ app.post('/nuevo-post', async (req, res) => {
 
 // Ruta para cronjob
 app.get('/verificar', async (req, res) => {
-  exec('node verificar.js', async (error, stdout, stderr) => {
-    if (error) {
-      console.error(`exec error: ${error}`);
-      await client.say(process.env.CHANNEL, '❌ Error ejecutando verificador');
-      return res.status(500).send('❌ Error ejecutando verificador');
-    }
-    console.log(`stdout: ${stdout}`);
-    console.error(`stderr: ${stderr}`);
-    await client.say(process.env.CHANNEL, '🤖 Verificador ejecutado correctamente');
-    res.send('✅ Verificador ejecutado');
-  });
+  try {
+    await client.say(process.env.CHANNEL, '🔄 El cron ha funcionado correctamente, iniciando verificación…');
+
+    exec('node verificar.js', async (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        await client.say(process.env.CHANNEL, '❌ Error ejecutando verificador');
+        return res.status(500).send('❌ Error ejecutando verificador');
+      }
+      console.log(`stdout: ${stdout}`);
+      console.error(`stderr: ${stderr}`);
+      await client.say(process.env.CHANNEL, '✅ Verificador ejecutado correctamente');
+      res.send('✅ Verificador ejecutado');
+    });
+  } catch (err) {
+    console.error(err);
+    await client.say(process.env.CHANNEL, '❌ Fallo inesperado al ejecutar cron');
+    res.status(500).send('❌ Fallo inesperado');
+  }
 });
 
 const PORT = process.env.PORT || 3000;
