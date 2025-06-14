@@ -1,5 +1,4 @@
-import puppeteer from 'puppeteer-core';
-import chrome from 'chrome-aws-lambda';
+import { chromium } from 'playwright-aws-lambda';
 import axios from 'axios';
 
 const INSTAGRAM_URL = 'https://www.instagram.com/mochi.9706/';
@@ -10,24 +9,16 @@ let ultimoInstagram = '';
 let ultimoTikTok = '';
 
 async function getBrowser() {
-  const executablePath = await chrome.executablePath;
-
-  if (!executablePath) {
-    throw new Error('No se encontró el navegador Chromium.');
-  }
-
-  return await puppeteer.launch({
-    args: chrome.args,
-    executablePath,
+  return await chromium.launch({
+    args: [],
     headless: true,
-    ignoreHTTPSErrors: true,
   });
 }
 
 async function verificarInstagram() {
   const browser = await getBrowser();
   const page = await browser.newPage();
-  await page.goto(INSTAGRAM_URL, { waitUntil: 'networkidle2' });
+  await page.goto(INSTAGRAM_URL, { waitUntil: 'networkidle' });
   await page.waitForSelector('article a');
 
   const enlace = await page.$eval('article a', el => el.href);
@@ -45,7 +36,7 @@ async function verificarInstagram() {
 async function verificarTikTok() {
   const browser = await getBrowser();
   const page = await browser.newPage();
-  await page.goto(TIKTOK_URL, { waitUntil: 'networkidle2' });
+  await page.goto(TIKTOK_URL, { waitUntil: 'networkidle' });
   await page.waitForSelector('a[href*="/video/"]');
 
   const enlace = await page.$$eval('a[href*="/video/"]', el => el[0]?.href);
