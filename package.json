@@ -5,7 +5,7 @@
   "main": "bot.js",
   "scripts": {
   "start": "node bot.js",
-  "verificar": "node verificador.js"
+  "verificar": "node verificar.js"
 },
   "keywords": [
     "twitch",
